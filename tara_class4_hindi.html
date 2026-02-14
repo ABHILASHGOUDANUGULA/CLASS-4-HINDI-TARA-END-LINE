@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>तारा पाठन - कक्षा 4 हिंदी</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans Devanagari', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.9;
+    font-size: 22px;
+    padding: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 44px;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+    font-weight: bold;
+}
+
+.credits {
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.story-container {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.story-container:hover {
+    transform: translateY(-5px);
+}
+
+.story-container:nth-child(2) {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.story-container:nth-child(3) {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+}
+
+.story-container:nth-child(4) {
+    background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+}
+
+.story-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.story-header:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.story-header h2 {
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.button-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.play-button {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.play-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.play-button.playing {
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+    animation: pulse-button 1.5s infinite;
+}
+
+@keyframes pulse-button {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.story-text {
+    color: #2d3748;
+    text-align: justify;
+    font-size: 22px;
+    line-height: 2.0;
+}
+
+.word {
+    cursor: pointer;
+    padding: 3px 5px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.word:hover {
+    background-color: rgba(255, 255, 0, 0.6);
+    transform: scale(1.05);
+}
+
+.word.clicked {
+    background-color: rgba(255, 165, 0, 0.7);
+    font-weight: bold;
+}
+
+.word.reading {
+    background-color: rgba(50, 205, 50, 0.7);
+    font-weight: bold;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.icon {
+    font-size: 24px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📖 तारा पाठन - कक्षा 4 हिंदी 📖</h1>
+    <div class="credits">Created by A.Abhilash Goud (PRT) KV Nizamabad</div>
+    
+    <div id="stories"></div>
+</div>
+
+<script>
+const stories = [
+    {
+        title: "बच्चे को दूध मिला",
+        text: `एक बच्चा बिना दूध पिए सो गया। उसकी माँ ने उसके लिए दूध ढककर रख दिया था। उसी झोपड़ी में एक चूहा रहता था, जो अपने बिल से बाहर आया। उसकी हलचल से दूध का बर्तन उलट गया। बच्चा जागा और भूख से रोने लगा, लेकिन घर में दूध नहीं था। चूहा बच्चे की माँ के पास गया और मन में निश्चय किया कि वह दूध लाएगा। वह तेजी से दौड़कर गाय के पास पहुँचा और उससे दूध माँगा। गाय ने बताया कि उसे घास नहीं मिल रही है, इसलिए वह सूख गई है। उसने शर्त रखी कि अगर उसे घास मिलेगी, तभी वह दूध दे पाएगी। चूहा दौड़कर घास के मैदान के पास पहुँचा और वहाँ घास माँगी। उसने समझाया कि घास से गाय को भोजन मिलेगा, जिससे वह बच्चे को दूध दे पाएगी। मैदान ने जवाब दिया कि बिना पानी के वह घास नहीं उगा सकता।`
+    },
+    {
+        title: "जादू",
+        text: `देवपुर का राजा कर्मसेन न्यायप्रिय था, परंतु उसे गीत-संगीत में कोई रुचि नहीं थी। अतः राज्य में गाने-बजाने की मनाही थी। उसी राज्य में सत्यजीत नाम का पढ़ा-लिखा, बाँसुरी बजाने में कुशल एक युवक था। एक दिन जंगल में पेड़ के नीचे बैठकर वह बाँसुरी बजा रहा था कि उसे एक घुड़सवार आता दिखाई दिया। अचानक घोड़े का पाँव फिसला और उस पर बैठा व्यक्ति जमीन पर गिर पड़ा और बेहोश हो गया। वह राजा कर्मसेन था। सत्यजीत ने राजा को होश में लाने का प्रयत्न किया, किंतु उन्हें होश नहीं आया। सत्यजीत सोच में डूब गया। फिर वह अपनी बाँसुरी निकालकर बजाने लगा। बाँसुरी का मधुर संगीत पूरे वातावरण में गूँजने लगा। पक्षी भी उस मधुर संगीत से आस-पास मँडराने लगे। तभी उसने देखा, राजा धीरे-धीरे आँखें खोल रहे हैं। सत्यजीत डरकर राजा के पाँव में गिर पड़ा।`
+    },
+    {
+        title: "आखिरी दिन",
+        text: `बहन जी कक्षा में आईं। उन्होंने देखा कि बच्चों की मनःस्थिति पढ़ाई के लिए नहीं थी। उन्होंने घोषणा की कि आज पढ़ाई नहीं होगी। यह सुनकर बच्चे बहुत खुश हुए। बहन जी ने कहा कि सभी एक पंक्ति में खड़े हो जाएँ। फिर सभी मैदान में पेड़ के नीचे चले गए। वहाँ बहन जी ने सबको अर्धगोलाकार में बैठने के लिए कहा। बच्चे जल्दी से बैठ गए। बहन जी ने पहले से ही पर्चियाँ तैयार कर रखी थीं। इन पर्चियों में किसान, रसोइया, दूधवाला, सब्जीवाला और डॉक्टर जैसे नाम लिखे थे। उन्होंने बताया कि सभी को एक-एक पर्ची लेनी होगी और पर्ची लेने के बाद सोचने के लिए पाँच मिनट मिलेंगे। सूचना जारी रखते हुए, उन्होंने समझाया कि किसी एक विद्यार्थी का क्रमांक बोला जाएगा, जिसे पर्ची के अनुसार अभिनय करना होगा। शेष विद्यार्थी अभिनय देखकर उस व्यवसाय का नाम बताएँगे। इसके बाद बच्चों ने अभिनय करना शुरू किया।`
+    }
+];
+
+let currentReadingStory = null;
+let isReading = false;
+let currentWordIndex = 0;
+let storyWords = [];
+let readingTimeout;
+
+const storiesDiv = document.getElementById('stories');
+
+// Create story containers
+stories.forEach((story, storyIndex) => {
+    const storyContainer = document.createElement('div');
+    storyContainer.className = 'story-container';
+    
+    // Story header (clickable)
+    const storyHeader = document.createElement('div');
+    storyHeader.className = 'story-header';
+    storyHeader.innerHTML = `<h2>${story.title}</h2>`;
+    storyHeader.onclick = function() {
+        speakText(story.title);
+    };
+    
+    // Button container
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container';
+    
+    const playButton = document.createElement('button');
+    playButton.className = 'play-button';
+    playButton.id = `play-btn-${storyIndex}`;
+    playButton.innerHTML = `<span class="icon">▶️</span><span>कहानी सुनें</span>`;
+    playButton.onclick = function() {
+        toggleReading(storyIndex);
+    };
+    
+    buttonContainer.appendChild(playButton);
+    
+    // Story text
+    const storyText = document.createElement('div');
+    storyText.className = 'story-text';
+    storyText.id = `story-${storyIndex}`;
+    
+    storyContainer.appendChild(storyHeader);
+    storyContainer.appendChild(buttonContainer);
+    storyContainer.appendChild(storyText);
+    storiesDiv.appendChild(storyContainer);
+    
+    // Split text into words and wrap each word in span
+    const words = [];
+    story.text.split(/(\s+)/).forEach((word, wordIndex) => {
+        if (word.trim().length > 0 && !word.match(/^\s+$/)) {
+            const span = document.createElement('span');
+            span.textContent = word;
+            span.className = 'word';
+            span.dataset.storyIndex = storyIndex;
+            
+            // Single click for pronunciation
+            span.onclick = function(e) {
+                e.stopPropagation();
+                const cleanWord = word.replace(/[.,!?।]/g, "");
+                if (!isReading && cleanWord) {
+                    speakText(cleanWord);
+                    this.classList.add('clicked');
+                    const element = this;
+                    setTimeout(() => element.classList.remove('clicked'), 500);
+                }
+            };
+            
+            storyText.appendChild(span);
+            words.push({
+                element: span,
+                text: word.replace(/[.,!?।]/g, "")
+            });
+        } else {
+            storyText.appendChild(document.createTextNode(word));
+        }
+    });
+    
+    story.wordElements = words;
+});
+
+function speakText(text) {
+    if (!text || text.trim() === '') return;
+    
+    // Cancel any ongoing speech
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+    }
+    
+    // Small delay to ensure cancellation completes
+    setTimeout(() => {
+        const utterance = new SpeechSynthesisUtterance(text.trim());
+        utterance.rate = 0.85;
+        utterance.pitch = 1.0;
+        utterance.lang = 'hi-IN';
+        utterance.volume = 1;
+        
+        window.speechSynthesis.speak(utterance);
+    }, 100);
+}
+
+function toggleReading(storyIndex) {
+    const playButton = document.getElementById(`play-btn-${storyIndex}`);
+    
+    if (currentReadingStory === storyIndex && isReading) {
+        // Stop reading
+        stopReading();
+        playButton.innerHTML = `<span class="icon">▶️</span><span>कहानी सुनें</span>`;
+        playButton.classList.remove('playing');
+    } else {
+        // Stop any current reading
+        if (isReading) {
+            stopReading();
+            const oldButton = document.getElementById(`play-btn-${currentReadingStory}`);
+            oldButton.innerHTML = `<span class="icon">▶️</span><span>कहानी सुनें</span>`;
+            oldButton.classList.remove('playing');
+        }
+        
+        // Start reading this story
+        currentReadingStory = storyIndex;
+        storyWords = stories[storyIndex].wordElements;
+        currentWordIndex = 0;
+        isReading = true;
+        playButton.innerHTML = `<span class="icon">⏸️</span><span>रोकें</span>`;
+        playButton.classList.add('playing');
+        readNextWord();
+    }
+}
+
+function readNextWord() {
+    if (!isReading || currentWordIndex >= storyWords.length) {
+        stopReading();
+        if (currentReadingStory !== null) {
+            const playButton = document.getElementById(`play-btn-${currentReadingStory}`);
+            playButton.innerHTML = `<span class="icon">▶️</span><span>कहानी सुनें</span>`;
+            playButton.classList.remove('playing');
+        }
+        return;
+    }
+    
+    // Remove previous highlight
+    if (currentWordIndex > 0) {
+        storyWords[currentWordIndex - 1].element.classList.remove('reading');
+    }
+    
+    // Highlight current word
+    const currentWord = storyWords[currentWordIndex];
+    currentWord.element.classList.add('reading');
+    currentWord.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Speak the word
+    const utterance = new SpeechSynthesisUtterance(currentWord.text);
+    utterance.rate = 1.1;
+    utterance.pitch = 1.0;
+    utterance.lang = 'hi-IN';
+    
+    utterance.onend = function() {
+        currentWord.element.classList.remove('reading');
+        currentWordIndex++;
+        // No timeout - immediate next word
+        readNextWord();
+    };
+    
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+}
+
+function stopReading() {
+    isReading = false;
+    window.speechSynthesis.cancel();
+    clearTimeout(readingTimeout);
+    
+    // Remove all reading highlights
+    if (storyWords.length > 0) {
+        storyWords.forEach(word => {
+            word.element.classList.remove('reading');
+        });
+    }
+}
+</script>
+
+</body>
+</html>
